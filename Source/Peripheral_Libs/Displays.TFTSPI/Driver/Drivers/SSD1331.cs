@@ -9,9 +9,9 @@ namespace Netduino.Foundation.Displays
         public override DisplayColorMode ColorMode => DisplayColorMode.Format16bppRgb565;
 
 
-        public override uint Width => 96;
+        public override uint Width => _width;
 
-        public override uint Height => 64;
+        public override uint Height => _height;
 
         private SSD1331()
         {
@@ -23,6 +23,8 @@ namespace Netduino.Foundation.Displays
             SPI.SPI_module spiModule = SPI.SPI_module.SPI1,
             uint speedKHz = 9500) : base(chipSelectPin, dcPin, resetPin, width, height, spiModule, speedKHz)
         {
+            _width = width;
+            _height = height;
             Initialize();
         }
 
