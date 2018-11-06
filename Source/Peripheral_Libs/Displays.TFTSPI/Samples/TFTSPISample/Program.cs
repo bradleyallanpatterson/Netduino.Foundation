@@ -12,20 +12,20 @@ namespace TFTSPISample
 {
     public class Program
     {
-        static ILI9163 tft;
+        static ST7735 tft;
         static GraphicsLibrary display;
         static PushButton button;
         static Led led;
 
         public static void Main()
         {
-            tft = new ILI9163(chipSelectPin: Pins.GPIO_PIN_D4,
-                dcPin: Pins.GPIO_PIN_D7,
-                resetPin: Pins.GPIO_PIN_D6,
+            tft = new ST7735(chipSelectPin: Pins.GPIO_PIN_D4,
+                dcPin: Pins.GPIO_PIN_D6,
+                resetPin: Pins.GPIO_PIN_D7,
                 width: 128,
-                height: 160,
+                height: 128,
                 spiModule: SPI.SPI_module.SPI1,
-                speedKHz: 15000);
+                speedKHz: 15000, displayType: ST7735.DisplayType.ST7735R_128x128);
 
             tft.ClearScreen(31);
             tft.Refresh();
@@ -92,7 +92,7 @@ namespace TFTSPISample
 
             var bytes = Resources.GetBytes(Resources.BinaryResources.trees);
 
-            DrawBitmap(10, 120, bytes, tft);
+           // DrawBitmap(10, 120, bytes, tft);
             tft.Refresh();
         }
 

@@ -21,15 +21,18 @@ namespace Netduino.Foundation.Displays
             DisplayType displayType = DisplayType.ST7735R) : base(chipSelectPin, dcPin, resetPin, width, height, spiModule, speedKHz)
         {
             this.displayType = displayType;
+
+            Initialize();
         }
 
         public enum DisplayType
         {
             ST7735R,
             ST7735R_GreenTab,
-            ST7735R_GreenTab_144x144,
-            ST7735R_GreenTab_80x160,
             ST7735R_BlackTab,
+            ST7735R_128x128,
+            ST7735R_144x144,
+            ST7735R_80x160,
             ST7735B, //done
         }
 
@@ -101,8 +104,6 @@ namespace Netduino.Foundation.Displays
 
             _xOffset = _yOffset = 0;
 
-            displayType = DisplayType.ST7735R_GreenTab_80x160;
-
             if (displayType == DisplayType.ST7735B)
             {
                 Init7735B();
@@ -114,16 +115,16 @@ namespace Netduino.Foundation.Displays
 
             if (displayType == DisplayType.ST7735R_GreenTab)
                 Init7735RGreen();
-            else if (displayType == DisplayType.ST7735R_GreenTab_144x144)
+            else if (displayType == DisplayType.ST7735R_144x144)
                 Init7735RGreen144x144();
-            else if (displayType == DisplayType.ST7735R_GreenTab_80x160)
+            else if (displayType == DisplayType.ST7735R_80x160)
                 Init7735RGreen80x160();
             else
                 Init7735RRed();
 
             Init7735REnd();
 
-            if(displayType == DisplayType.ST7735R_GreenTab_80x160 || 
+            if(displayType == DisplayType.ST7735R_80x160 || 
                 displayType == DisplayType.ST7735R_BlackTab)
             {
                 SendCommand(LcdCommand.MADCTL, new byte[] { 0xC0 });
